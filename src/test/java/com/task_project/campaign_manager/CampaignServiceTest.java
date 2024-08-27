@@ -2,6 +2,7 @@ package com.task_project.campaign_manager;
 
 import com.task_project.campaign_manager.data.Campaign;
 import com.task_project.campaign_manager.data.Keyword;
+import com.task_project.campaign_manager.data.Town;
 import com.task_project.campaign_manager.dtos.CampaignDto;
 import com.task_project.campaign_manager.dtos.KeywordDto;
 import com.task_project.campaign_manager.exceptions.CampaignAlreadyExistsException;
@@ -39,6 +40,7 @@ class CampaignServiceTest {
 
     @Test
     void testConvertCampaignToDto() {
+        Town town = new Town("new York");
         Campaign campaign = new Campaign(
                 "Campaign Name",
                 "Description",
@@ -46,7 +48,7 @@ class CampaignServiceTest {
                 BigDecimal.valueOf(100),
                 BigDecimal.valueOf(1000),
                 true,
-                "Town",
+                town,
                 10,
                 null
         );
@@ -59,12 +61,14 @@ class CampaignServiceTest {
         assertEquals(BigDecimal.valueOf(100), campaignDto.getBidAmount());
         assertEquals(BigDecimal.valueOf(1000), campaignDto.getFund());
         assertTrue(campaignDto.getStatus());
-        assertEquals("Town", campaignDto.getTown());
+        assertEquals("new York", campaignDto.getTown());
         assertEquals(10, campaignDto.getRadius());
     }
 
     @Test
     void testCreateNewCampaign_Success() {
+        Town town = new Town("new York");
+
         Campaign campaign = new Campaign(
                 "New Campaign",
                 "Description",
@@ -72,7 +76,7 @@ class CampaignServiceTest {
                 BigDecimal.valueOf(100),
                 BigDecimal.valueOf(1000),
                 true,
-                "Town",
+                town,
                 10,
                 null
         );
@@ -89,6 +93,7 @@ class CampaignServiceTest {
 
     @Test
     void testCreateNewCampaign_CampaignAlreadyExists() {
+        Town town = new Town("new York");
 
         Campaign existingCampaign = new Campaign(
                 "Existing Campaign",
@@ -97,7 +102,7 @@ class CampaignServiceTest {
                 BigDecimal.valueOf(100),
                 BigDecimal.valueOf(1000),
                 true,
-                "Town",
+                town,
                 10,
         null
         );
@@ -111,7 +116,7 @@ class CampaignServiceTest {
                 BigDecimal.valueOf(100),
                 BigDecimal.valueOf(1000),
                 true,
-                "Town",
+                town,
                 10,
         null
         );
@@ -125,6 +130,8 @@ class CampaignServiceTest {
 
     @Test
     void testGetCampaignByName_Success() {
+        Town town = new Town("new York");
+
         Campaign campaign = new Campaign(
                 "Existing Campaign",
                 "Description",
@@ -132,7 +139,7 @@ class CampaignServiceTest {
                 BigDecimal.valueOf(100),
                 BigDecimal.valueOf(1000),
                 true,
-                "Town",
+                town,
                 10,
                 null
         );

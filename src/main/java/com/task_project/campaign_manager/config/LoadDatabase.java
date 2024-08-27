@@ -84,6 +84,8 @@ public class LoadDatabase {
             );
             log.info("Preloading " + campaignRepository.save(campaign1));
             log.info("Preloading " + campaignRepository.save(campaign2));
+
+
         };
     }
 }

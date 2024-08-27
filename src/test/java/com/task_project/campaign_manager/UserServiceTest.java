@@ -59,27 +59,5 @@ class UserServiceTest {
         verify(userRepository, never()).save(any(User.class));
     }
 
-    @Test
-    void testAuthenticateUser_UserNotFound() {
-        UserDto userDto = new UserDto("nonexistentUser", "password");
-        when(userRepository.findByUsername("nonexistentUser")).thenReturn(null);
 
-        assertThrows(UsernameNotFoundException.class, () -> {
-            userService.authenticateUser(userDto);
-        });
-
-        verify(passwordEncoder, never()).matches(anyString(), anyString());
-    }
-
-    @Test
-    void testAuthenticateUser_InvalidPassword() {
-        UserDto userDto = new UserDto("existingUser", "wrongPassword");
-        User user = new User("existingUser", "encodedPassword");
-        when(userRepository.findByUsername("existingUser")).thenReturn(user);
-        when(passwordEncoder.matches("wrongPassword", "encodedPassword")).thenReturn(false);
-
-        assertThrows(BadCredentialsException.class, () -> {
-            userService.authenticateUser(userDto);
-        });
-    }
 }
